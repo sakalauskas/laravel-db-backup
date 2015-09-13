@@ -27,6 +27,10 @@ class DatabaseBuilder
 			$this->buildPostgres($realConfig);
 			break;
 
+			case 'mongodb':
+			$this->buildMongodb($realConfig);
+			break;
+
 			default:
 			throw new \Exception('Database driver not supported yet');
 			break;
@@ -65,6 +69,18 @@ class DatabaseBuilder
 			$config['password'],
 			$config['host']
 			);
+	}
+
+	protected function buildMongodb(array $config) {
+
+		$this->database = new Databases\MongodbDatabase(
+			$this->console,
+			$config['database'],
+			$config['host'],
+			$config['port'],
+			$config['username'],
+			$config['password']
+		);
 	}
 
 }
